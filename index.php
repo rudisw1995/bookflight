@@ -1,13 +1,42 @@
 <!DOCTYPE HTML>
 
+<?php 
+    include('cek-login.php');
+?>
+
+
 <html>
 	<head>
 		<title>TUGAS SG</title>
 		<link href = "css/bootstrap.css" rel ="stylesheet" media="all"> 
 		<link href = "css/style.css" rel ="stylesheet" media="all"> 
 	</head>
+
 <body>
-	 <br><br>
+	 
+<div class="header">
+  <div class="menu">
+     <ul>
+       <li>MENU</li>
+       <li>JADWAL PENERBANGAN </li>
+       <li>KELAS</li>
+       <li><a href="input.php">BOOKING</a></li>
+     </ul>
+  </div>
+  <div class="akun">
+  <a>
+  <?php 
+    if (!empty($_GET['message']) && $_GET['message'] == 'success') {
+       echo '<h3>Data Successfully added!</h3>';
+    }
+    echo "".$_SESSION['username']."";
+  ?>
+</a>
+  <a href="logout.php">Logout</a>
+  </div>
+
+</div>
+
 <div class="container">
 <div class="jumbotron">
 
@@ -16,6 +45,7 @@
    <center><img src ="21976406-Charming-Stewardess-Holding-Airplane-In-Hand--Stock-Photo-stewardess-flight-air.jpg" width="200 pixel" height="200" length="200"></center>
 
 </div>
+
 </div>
 <?php
 include 'connect.php';
@@ -32,7 +62,7 @@ include 'connect.php';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Book Your Flight Below</a>
+      <a class="navbar-brand" href="#">Booking List</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -119,6 +149,7 @@ include 'connect.php';
     </tbody>
 </table>
 </div>
+
 <div class="footer">
 <div class="container2">
   <text>© Project 2015</text>

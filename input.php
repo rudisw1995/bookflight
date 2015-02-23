@@ -3,6 +3,7 @@
 include 'connect.php';
 ?> 
 <link href="css/bootstrap.css" rel="stylesheet" media="all">
+<body background = "stock-footage--animated-intro-with-airplane-flying-over-clouds.jpg">
 <fieldset style="width: 50%; margin: auto;">
     <legend>Book Your Flight Below</legend>
      

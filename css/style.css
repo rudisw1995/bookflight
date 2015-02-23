@@ -19,3 +19,27 @@ body {
 	padding-top:9px;
 	color:white;
 }
+.header{
+	display:inline-block;
+	color:red;
+	height:40px;
+	background:#444444;
+	width:1347px;
+}
+.akun{
+	display:inline-block;
+	float:right;
+	padding-right:10px;
+	
+}
+.akun a{
+	padding-left:30px;
+}
+.menu ul li{
+	float:left;
+	padding-left:30px;
+}
+.menu ul li:hover{
+	background-color:white;
+	cursor:pointer;
+}
