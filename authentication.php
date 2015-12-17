@@ -50,7 +50,7 @@ if (empty($username) && empty($password)) {
     
 if (isset($_POST['submit'])) {
 	$username = $_POST['username'];
-	$password = $_POST['pass'];
+	$password = md5($_POST['pass']);
 	
 	$sql = "INSERT INTO `akun` (`USERNAME`,`PASSWORD`) values('$username','$password')";
     mysql_query($sql) or die ('Error!!'.mysql_error());

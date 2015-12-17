@@ -1,5 +1,3 @@
-<!DOCTYPE HTML>
-
 <?php 
     include('cek-login.php');
 ?>
@@ -7,19 +5,19 @@
 
 <html>
 	<head>
-		<title>TUGAS SG</title>
+		<title>TUGAS SP2</title>
 		<link href = "css/bootstrap.css" rel ="stylesheet" media="all"> 
 		<link href = "css/style.css" rel ="stylesheet" media="all"> 
-	</head>
+	   
+  </head>
+
 
 <body>
 	 
 <div class="header">
   <div class="menu">
      <ul>
-       <li>MENU</li>
-       <li>JADWAL PENERBANGAN </li>
-       <li>KELAS</li>
+       <li><a href="information.php">FLIGHT SCHEDULE</li>
        <li><a href="input.php">BOOKING</a></li>
      </ul>
   </div>
@@ -40,8 +38,8 @@
 <div class="container">
 <div class="jumbotron">
 
-  <center><h1>WELCOME TO AIRRUDI</h1></center>
-   <center><p>We Offered the Safest Flight in the World</p></center>
+  <center><h1>WELCOME TO WISELY AIR</h1></center>
+   <center><p>We Offered the Cheapest Flight</p></center>
    <center><img src ="21976406-Charming-Stewardess-Holding-Airplane-In-Hand--Stock-Photo-stewardess-flight-air.jpg" width="200 pixel" height="200" length="200"></center>
 
 </div>
@@ -99,23 +97,22 @@ include 'connect.php';
 <table class="table table-hover" border="1" >
     <thead>
         <tr bgcolor="#abacac">
-            <td>ID</td>
+            <td>ID NUMBER</td>
             <td>NAME</td>
             <td>DEPART</td>
             <td>RETURN</td>
             <td>CLASS</td>
             <td>DEPARTURE DATE</td>
-            <td>RETURN DATE</td>
-            <td>DEPARTURE TIME</td>
-            <td>ARRIVAL TIME</td>
+            <td>PRICE</td>
             <td>EDIT</td>
         </tr>
     </thead>
      
     <tbody>
     <?php
-    // $sql = "SELECT * FROM airplane ORDER BY DEPARTURE_DATE";
-    $query = mysql_query("SELECT * FROM airplane");
+    $user = $_SESSION['username'];
+    // $sql = "SELECT * FROM airplane where NAME=ORDER BY DEPARTURE_DATE";
+    $query = mysql_query("SELECT * FROM airplane where NAME LIKE '%$user%'");
     // $no  = 1;
     // foreach ($dbh->query($sql) as $data) :
     while ($row = mysql_fetch_array($query)) {
@@ -127,13 +124,18 @@ include 'connect.php';
 			<?php
             echo "<td>$row[ID]</td>";
             echo "<td>$row[NAME]</td>";
-            echo "<td>$row[DEPART]</td>";
-            echo "<td>$row[RETURN]</td>";
+              $sql_depart=mysql_query("SELECT *FROM depart WHERE id_airport='$row[DEPART]'");
+              $array_depart=mysql_fetch_array($sql_depart);
+            echo "<td>$array_depart[depart]</td>";
+              $sql_arrive=mysql_query("SELECT *FROM depart WHERE id_airport='$row[RETURN]'");
+              $array_arrive=mysql_fetch_array($sql_arrive);
+            echo "<td>$array_arrive[depart]</td>";
             echo "<td>$row[CLASS]</td>"; 
             echo "<td>$row[DEPARTURE_DATE]</td>";
-            echo "<td>$row[RETURN_DATE]</td>";
-            echo "<td>$row[DEPARTURE_TIME]</td>";
-            echo "<td>$row[ARRIVAL_TIME]</td>";
+            echo "<td>$row[PRICE]</td>";
+            #$sql_departure_time=mysql_query("SELECT *FROM jam WHERE id='$row[DEPARTURE_TIME]'");
+            #  $array_departure_time=mysql_fetch_array($sql_departure_time);
+            #echo "<td>$array_departure_time[departure_time] - $array_departure_time[arrival_time]</td>";
             ?>
 			<td align="center">
                 <a href="edit.php?id=<?php echo "$row[ID]";?>">Edit |</a>

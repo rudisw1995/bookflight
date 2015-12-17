@@ -33,11 +33,18 @@ if (($_GET['id']) === "") {
     <form action="update.php" method="post">
         <input type="hidden" name="id" value="<?php echo "$row[ID]";?>" />
         <p>
-            ID
+            <?php
+                error_reporting(0);
+               $stat=$_GET['stat'];
+                if($stat==1){
+                echo" <div class='alert alert-danger' role='alert'>Kota tujuan dan keberangkatan sama</div>";
+                }    
+            ?>
+            ID NUMBER
 
             <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span></span>
-            <input type="int" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[ID]"; ?>" disabled = "disabled">
+            <input type="int" required class="form-control" placeholder="" aria-describedby="sizing-addon1" name="id_pemesan"/>
             </div>
         </p>
          
@@ -46,35 +53,43 @@ if (($_GET['id']) === "") {
 
             <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[NAME]"; ?>" name="nama">
+            <input type="text" required class="form-control" placeholder="" aria-describedby="sizing-addon1"  name="nama"  />
             </div>
-        </p>
-         
-        <p>
+            
             DEPART
+            
+            <?php
+            $sql4=mysql_query("SELECT * FROM airplane WHERE ID='$id'");
+            $array4=mysql_fetch_array($sql4);
+            $sql5=mysql_query("SELECT * FROM depart WHERE id_airport='$array4[DEPART]' ");
+            $array5=mysql_fetch_array($sql5);
+            ?>
             <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span></span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[DEPART]"; ?>" name="depart">
+            <input type="text" disabled class="form-control" value="<?php echo $array5['depart']?> "  name="depart"  />
             </div>
 
         </p>
          
         <p>
             RETURN
-
+            
+            <?php
+            $sql6=mysql_query("SELECT * FROM depart WHERE id_airport='$array4[RETURN]' ");
+            $array6=mysql_fetch_array($sql6);
+         ?>
             <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span></span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[RETURN]"; ?>" name="return">
+            <input type="text" disabled class="form-control" value="<?php echo $array6['depart']?> "  name="nama"  />
             </div>
         </p>
+            
             CLASS
 
             <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-bed" aria-hidden="true"></span></span>
-            <select class="form-control" name="clas">
+            <select class="form-control" name="class">
             <option>ECONOMY</option>
-            <option>BUSINESS</option>
-            <option>FIRST</option>
            </select>
             
             
@@ -85,34 +100,12 @@ if (($_GET['id']) === "") {
 
             <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-            <input type="date" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[DEPARTURE_DATE]"; ?>" name="departure_date" >
-            </div>
-        </p>
-            RETURN DATE
-
-            <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-            <input type="date" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[RETURN_DATE]"; ?>" name="return_date">
+            <input type="date" required disabled class="form-control" value="<?php echo $array4['DEPARTURE_DATE'] ?>"name="departure_date"/>
             </div>
         </p>
          
         
         </p>
-            DEPARTURE TIME
-
-            <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-            <input type="time" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[DEPARTURE_TIME]"; ?>" name="departure_time">
-            </div>
-        </p>
-            ARRIVAL TIME
-
-            <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-            <input type="time" class="form-control" placeholder="" aria-describedby="sizing-addon1" value="<?php echo "$row[ARRIVAL_TIME]"; ?>" name="arrival_time">
-            </div>
-        </p>
-        <p>
             
             <input class="btn btn-default" type="submit" name="submit" value="Submit" />
             <input class="btn btn-default" type="reset" value="Reset" onclick="return confirm('Delete data?')">
